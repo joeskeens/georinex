@@ -130,7 +130,8 @@ def rinexobs3(
                 # genfromtext is bottleneck, limit calls this way
                 darr = np.atleast_2d(
                     np.genfromtxt(
-                        np.char.lstrip(f[isv == i], sv), delimiter=(14, 1, 1) * hdr["Fmax"]
+                        [ln[3:].rstrip("\r\n").ljust(16 * hdr["Fmax"]) for ln in f[isv == i]],
+                        delimiter=(14, 1, 1) * hdr["Fmax"],
                     )
                 )
 
